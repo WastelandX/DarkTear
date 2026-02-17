@@ -1,7 +1,7 @@
 # DarkTear v1.0
 ### by WastelandX
 
-> "phishing, cybersecurity, educational, penetration-testing, social-engineering, security-tools, red-team, infosec, ethical-hacking, security-awareness, terminal-ui, cli-tool, python3, php, colored-output, ascii-art, dark-theme, python, ssh-tunneling, localhost-run, fake-detection, credential-logging, html-templates, mobile-responsive, security-research, training, awareness, demonstration, authorized-testing, educational-purposes-only, do-not-use-illegally, responsible-disclosure, authorized-use-only"
+> "Do-not-use-illegally, responsible-disclosure, authorized-use-only"
 
 ---
 
