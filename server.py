@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # DarkTear v1.0 - by WastelandX
-# MANUAL TUNNEL MODE: user runs tunnel separately.
+# MANUAL TUNNEL MODE: user runs localhost.run separately.
 
 import os
 import sys
@@ -133,14 +133,14 @@ def start_php_server(port=8080):
         print(f"{R}[-] PHP not found. Install PHP first.{RS}")
         return None
 
-# ========== MANUAL TUNNEL HANDLER ==========
+# ========== MANUAL TUNNEL HANDLER (localhost.run) ==========
 def manual_tunnel_setup():
-    """Show instructions and ask for public URL."""
-    print(f"\n{Y}[!] MANUAL TUNNEL REQUIRED{RS}")
+    """Show instructions for localhost.run and ask for public URL."""
+    print(f"\n{Y}[!] MANUAL TUNNEL REQUIRED (localhost.run){RS}")
     print(f"{W}1. Open a new terminal.{RS}")
-    print(f"{W}2. Run: {G}loclx tunnel http --to localhost:8080{RS}")
-    print(f"{W}3. Copy the public URL (e.g., https://xxxx.loclx.io){RS}")
-    print(f"{W}4. Paste it below.\n{RS}")
+    print(f"{W}2. Run: {G}ssh -R 80:localhost:8080 localhost.run{RS}")
+    print(f"{W}3. Look for the line containing 'https://xxxxx.localhost.run'{RS}")
+    print(f"{W}4. Copy that full URL and paste it below.\n{RS}")
     url = input(f"{O}[?]{W} Enter public URL: {RS}").strip()
     return url
 
