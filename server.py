@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # DarkTear v1.0 - by WastelandX
-# MANUAL TUNNEL MODE: user runs localhost.run separately.
+# MANUAL TUNNEL: user runs localhost.run separately.
 
 import os
 import sys
@@ -43,7 +43,7 @@ def show_main_logo():
             else:
                 colored += f"{colors[i % 3]}{ch}"
         print(colored + RS)
-    print(f"\n{R}Where DDoS and Phishing meets eachother.{RS}")
+    print(f"\n{R}Author is not responsible for any misuse.{RS}")
     print(f"{R}" + "═"*60 + f"{RS}\n")
 
 def show_tunnel_logo():
