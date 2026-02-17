@@ -12,13 +12,14 @@ import glob
 from datetime import datetime
 
 # ========== COLORS ==========
-R = '\033[91m'      # Red
-B = '\033[96m'      # Electric Blue
-O = '\033[93m'      # Orange
-G = '\033[92m'      # Green
-Y = '\033[93m'      # Yellow
-W = '\033[97m'      # White
-RS = '\033[0m'      # Reset
+R = '\033[91m'          # Red
+B = '\033[96m'          # Electric Blue (for other elements)
+DB = '\033[1;34m'       # Bold Dark Blue (for tunnel logo)
+O = '\033[93m'          # Orange
+G = '\033[92m'          # Green
+Y = '\033[93m'          # Yellow
+W = '\033[97m'          # White
+RS = '\033[0m'          # Reset
 
 # ========== LOGOS ==========
 def show_main_logo():
@@ -48,7 +49,7 @@ def show_main_logo():
 
 def show_tunnel_logo():
     os.system('clear' if os.name == 'posix' else 'cls')
-    print(f"{B}")
+    print(f"{DB}")   # Bold Dark Blue
     print("██████  █████  ██████  ██   ██ ████████ ███████  █████  ██████")
     print("██   ██ ██   ██ ██   ██ ██  ██     ██    ██      ██   ██ ██   ██")
     print("██   ██ ███████ ██████  █████      ██    █████   ███████ ██████")
@@ -153,18 +154,22 @@ def start_localhost_run(port=8080):
         while not url_found:
             line = proc.stdout.readline()
             if not line:
+                # Process might have exited
                 break
             print(line.strip())
+            # Look for a line containing https:// and .localhost.run
             if "https://" in line and ".localhost.run" in line:
-                # Extract URL (usually the last word)
+                # Extract URL (usually the last word, but sometimes embedded)
                 parts = line.strip().split()
                 for part in parts:
                     if part.startswith("https://") and ".localhost.run" in part:
                         url = part
                         break
                 else:
+                    # Fallback: take the whole line
                     url = line.strip()
-                print(f"\n{G}[+] Public URL: {B}{url}{RS}")
+                print(f"\n{G}[+] Public URL: {DB}{url}{RS}")
+                print(f"{Y}[!] Share this link with your target.{RS}\n")
                 url_found = True
         if not url_found:
             print(f"{Y}[!] Could not extract URL. Check above.{RS}")
